@@ -1,0 +1,20 @@
+app.post('/checkout', function(req, res) {
+    // Asume que el frontend envía el 'token' y el 'amount'
+    const token = req.body.token;
+    const amount = req.body.amount;
+  
+    // Crea un cargo usando el SDK de Stripe
+    stripe.charges.create({
+      amount: amount, // cantidad en centavos
+      currency: 'usd',
+      description: 'Mi producto',
+      source: token,
+    }, function(error, charge) {
+      if (error) {
+        res.status(500).send({ success: false, message: error.message });
+      } else {
+        // Envía una respuesta al cliente
+        res.send({ success: true, charge: charge });
+      }
+    });
+  });
