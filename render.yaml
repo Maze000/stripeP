@@ -1,0 +1,7 @@
+services:
+  - name: stripe1
+    type: web
+    env: node
+    buildCommand: npm run build
+    startCommand: npm start
+    websocket: true
